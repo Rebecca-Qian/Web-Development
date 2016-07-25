@@ -71,25 +71,110 @@ document.getElementById("calculateFib").addEventListener("click", displayFib);
 // Have the user enter a number and find all Prime Factors
 // (if there are any) and display them.
 
-/*var Prime = function (n) {
-	if (typeof n != number) {
-		throw...
+var isPrime = function (n) {
+	// Check for evens
+	if ((n % 2 === 0 && n !== 2)||(n === 1)) {
+		return false;
 	}
-
-	var str = "";
-
-	if (isPrime(n)) {
-
+	// Check for odd factors
+	for (var i = 3; i < n; i += 2) {
+		if (n % i === 0 && n != i) {
+			return false;
+		}
 	}
-
+	return true;
 }
 
+	var primeFactor = function (r){
+		// Check if input is prime
+		if (isPrime(r)) {
+			console.log(factors);
+			factors.push(r);
+			//console.log(r);
+			// End of prime factor search
+			console.log(factors);
+			console.log("return");
+			console.log(factors);
+			return factors;
+		}
+
+		// Check if 2 is a factor
+		// divide by 2 until number is odd
+		
+		if (r % 2 === 0) {
+			console.log("before push");
+			factors.push(2);
+			console.log("pushed 2");
+			console.log(factors);
+			//console.log(2);
+			while (r % 2 === 0) {
+			r = r/2;
+		}
+		console.log(".");
+		console.log(r);
+		console.log(factors);
+		primeFactor(r);
+	}
+		// 	if (i !== lastPrime) {
+		// 		// Print 2
+		// 	}
+		// 	lastPrime = 2;
+		// 	// Search for other factors
+		// 	//console.log(r);
+		// 	primeFactor(r);
+		// 	//console.log(a);
+		// }
+
+		for (var i = 3; i <= Math.sqrt(r); i += 2) {
+			// Check if factor is prime
+			console.log(".");
+			if (isPrime(i)) {
+				// Check if input divides factor
+				//console.log(r);
+				//console.log(Math.sqrt(r));
+				if (r % i === 0) {
+					//console.log(i);
+					
+					factors.push(i);
+
+					while (r % i === 0) {
+						r = r/i;
+						//console.log(r);
+					}
+
+					//lastPrime = i;
+					primeFactor(r);
+				}
+			}
+			//console.log(r);
+			//primeFactor(r);
+		}
+
+	}
+
+var Prime = function (n) {
+	//"use strict";
+
+	if (typeof n !== 'number') {
+		throw {
+			name: 'TypeError',
+			message: 'Prime needs numbers'
+		};
+	}
+
+	var factors = [];
+
+	//var primeFactors = [];
+
+	var primeFactors = primeFactor(n);
+	console.log(primeFactors);
+} 
 
 // Next Prime Number - Have the program find prime numbers
 // until the user chooses to stop asking for the next one.
 
 // Global variable to store last prime number
-var nextPrime = function (index) {
+/*var nextPrime = function (index) {
 	for (var count = 1; count < index; count++) {
 		for (var i = 1; i; i++) {
 			if (isPrime(n)) {
@@ -97,16 +182,6 @@ var nextPrime = function (index) {
 			}
 		}
 	}
-}
-
-// bpplean helper function checks if a number is prime
-var isPrime = function (n) {
-	for (var i = 3; i < n; i += 2) {
-		if (n % i === 0) {
-			return false;
-		}
-	}
-	return true;
 }*/
 
 // Find Cost of Tile to Cover W x H Floor - 
