@@ -71,7 +71,8 @@ document.getElementById("calculateFib").addEventListener("click", displayFib);
 // Have the user enter a number and find all Prime Factors
 // (if there are any) and display them.
 
-var isPrime = function (n) {
+var Prime = {};
+Prime.isPrime = function (n) {
 	// Check for evens
 	if ((n % 2 === 0 && n !== 2)||(n === 1)) {
 		return false;
@@ -85,91 +86,58 @@ var isPrime = function (n) {
 	return true;
 }
 
-	var primeFactor = function (r){
-		// Check if input is prime
-		if (isPrime(r)) {
-			console.log(factors);
-			factors.push(r);
-			//console.log(r);
-			// End of prime factor search
-			console.log(factors);
-			console.log("return");
-			console.log(factors);
-			return factors;
-		}
+Prime.factors = [];
 
-		// Check if 2 is a factor
-		// divide by 2 until number is odd
-		
-		if (r % 2 === 0) {
-			console.log("before push");
-			factors.push(2);
-			console.log("pushed 2");
-			console.log(factors);
-			//console.log(2);
-			while (r % 2 === 0) {
-			r = r/2;
-		}
-		console.log(".");
-		console.log(r);
-		console.log(factors);
-		primeFactor(r);
+Prime.primeFactor = function (r) {
+	if (this.isPrime(r)) {
+		this.factors.push(r);
+		return this.factors;
 	}
-		// 	if (i !== lastPrime) {
-		// 		// Print 2
-		// 	}
-		// 	lastPrime = 2;
-		// 	// Search for other factors
-		// 	//console.log(r);
-		// 	primeFactor(r);
-		// 	//console.log(a);
-		// }
 
-		for (var i = 3; i <= Math.sqrt(r); i += 2) {
-			// Check if factor is prime
-			console.log(".");
-			if (isPrime(i)) {
-				// Check if input divides factor
-				//console.log(r);
-				//console.log(Math.sqrt(r));
-				if (r % i === 0) {
-					//console.log(i);
-					
-					factors.push(i);
+	if (r % 2 === 0) {
+		this.factors.push(2);
+		while (r % 2 === 0) {
+			r /= 2;
+		}
+		if (r === 1) {
+			return this.factors;
+		}
 
-					while (r % i === 0) {
-						r = r/i;
-						//console.log(r);
-					}
+		if (this.isPrime(r)) {
+		this.factors.push(r);
+		return this.factors;
+	}
+}
 
-					//lastPrime = i;
-					primeFactor(r);
+	for (var i = 3; i <= Math.sqrt(r); i += 2) {
+		if (this.isPrime(i)) {
+			if (r % i === 0) {
+				this.factors.push(i);
+
+				while (r % i === 0) {
+					r /= i;
+				}
+
+				if (this.isPrime(r)) {
+					this.factors.push(r);
+					return this.factors;
 				}
 			}
-			//console.log(r);
-			//primeFactor(r);
 		}
-
 	}
 
-var Prime = function (n) {
-	//"use strict";
+	return this.factors;
+}
 
-	if (typeof n !== 'number') {
-		throw {
-			name: 'TypeError',
-			message: 'Prime needs numbers'
-		};
-	}
+Prime.displayPrime = function () {
+	var num = document.getElementById("primeFactors").value;
+	  var primeSeq = Prime.primeFactor(num);
+	document.getElementById("showPrime").innerHTML = primeSeq;
+	Prime.factors = [];
+}
 
-	var factors = [];
-
-	//var primeFactors = [];
-
-	var primeFactors = primeFactor(n);
-	console.log(primeFactors);
-} 
-
+Prime.node = document.getElementById("calculatePrime").addEventListener("click", Prime.displayPrime);
+	
 // Next Prime Number - Have the program find prime numbers
 // until the user chooses to stop asking for the next one.
 
@@ -187,13 +155,82 @@ var Prime = function (n) {
 // Find Cost of Tile to Cover W x H Floor - 
 // Calculate the total cost of tile it would take to cover
 // a floor plan of width and height, using a cost entered by the user. 
+var tileCost = {};
+tileCost.totalCost = function (width, height, cost) {
+	return width * height * cost;
+}
 
 // Factorial Finder - 
 // The factorial of a positive integer n is defined as the product of the sequence , 
 // n-1, n-2, ...1 and the factorial of 0 is defined as being 1.
 // Solve this using both loops and recursion.
 
+var factorial = {
+	factorialFinder: function (n) {
+	var fact = 1;
+	while (n > 1) {
+		fact *= n;
+		n--;
+	}
+	return fact;
+}
+};
+
+factorial.displayFact = function () {
+	var inputNum = document.getElementById("findFact").value;
+	var result = factorial.factorialFinder(inputNum);
+	document.getElementById("showFact").innerHTML = result;
+}
+
+document.getElementById("calculateFact").addEventListener("click", factorial.displayFact);
+
+// Using recursion
+// var findFactorial = function (n) {
+// 	// Check that n > 0
+// 	// try {
+// 	// 	if (n == "") throw "empty";
+// 	// 	if (n < 0) throw "negative";
+// 	// 	if (isNaN(n)) throw "not a number";
+// 	// }
+// 	// catch(err) {
+// 	// 	message.innerHTML = "Input is" + err;
+// 	// }
+
+// 	// base case
+// 	if (n === 1) {
+// 		return 1;
+// 	 }
+
+// 	return n * this.findFactorial(n - 1);
+// }
+
 // Coin Flip Simulation - 
 // Write some code that simulates flipping a single coin
 // however many times the user decides.
 // The code should record the outcomes and count the number of tails and heads.
+var coinFlip = {};
+coinFlip.singleFlip = function() {
+	//returns 0 or 1
+	return Math.floor(Math.random() * 2);
+}
+coinFlip.tally = {
+	Heads: 0,
+	Tails: 0
+}
+coinFlip.recordFlips = function(n) {
+ 	while (n > 0) {
+ 		if (this.singleFlip() === 0) this.tally.Heads++;
+ 		if (this.singleFlip()=== 1) this.tally.Tails++;
+ 		n--;
+ 	}
+ 	return this.tally;
+ }
+
+coinFlip.getFlip = function () {
+	var flips = document.getElementById("numFlips").value;
+	var result = coinFlip.recordFlips(flips);
+	document.getElementById("showFlip").innerHTML = "Heads: " + result.Heads + " Tails: " + result.Tails;
+}
+
+document.getElementById("flipCoin").addEventListener("click", coinFlip.getFlip);
+
