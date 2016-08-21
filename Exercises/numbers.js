@@ -234,3 +234,86 @@ coinFlip.getFlip = function () {
 
 document.getElementById("flipCoin").addEventListener("click", coinFlip.getFlip);
 
+// Classical Algorithms
+// Collatz
+var collatz = function (n) {
+	var steps = 0;
+
+	while (n > 1) {
+		if (n % 2 === 0) {
+			n /= 2;
+			steps++;
+		} else {
+			n *= 3;
+			n += 1;
+			steps++;
+		}
+	}
+
+	return steps;
+}
+
+// Sieve of Eratosthenes
+var sieve = function (n) {
+	var factors = [];
+	var primes = [];
+
+	for (var i = 1; i < n; i++) {
+		factors.push(i);
+	}
+
+	for (i = 2; i <= Math.sqrt(n); i++) {
+		if (factors[i]) {
+			for (var j = i * i; j < n; j += i) {
+				factors[j] = null;
+			}
+		}
+	}
+
+	for (i = 2; i < n; i++) {
+		if (factors[i]) {
+			primes.push(i);
+		}
+	}
+
+	return primes;
+}
+
+// Mortgage Calculator
+
+// Change return program
+
+// Binary/Decimal Converter
+
+// Simple Calculator
+
+// Text
+
+// Pig Latin
+
+// Count Words
+function countWords (str) {
+	return str.split(' ').length;
+}
+
+// Text Editor
+
+
+// Product Inventory
+function () {
+	"use strict";
+
+	// Function constructor constructs new Product object
+	function Product(i, n, p, q) = {
+		this.id = i;
+		this.name = n;
+		this.price = p;
+		this.quantity = q;
+	}
+
+
+
+}
+
+// Fetch Current Weather
+
